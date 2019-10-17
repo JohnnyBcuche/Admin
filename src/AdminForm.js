@@ -1,6 +1,9 @@
 import React from 'react';
 import { Responsive, SimpleList, Filter, List, Datagrid, TextField, UrlField, ReferenceField, EditButton, Edit, SimpleForm, DisabledInput, ReferenceInput, SelectInput, TextInput, LongTextInput, Create } from 'react-admin';
 import { withStyles } from '@material-ui/core/styles';
+import EmailIcon from '@material-ui/icons/Email';
+// import Icon from '@material-ui/core/Icon';
+// import SvgIcon from '@material-ui/core/SvgIcon';
 
 const styles = {
   button: {
@@ -29,13 +32,17 @@ const MyEditButton = withStyles(styles)(({ classes, ...props }) => (
 
 export const UserList = (props) => (
   <List {...props}>
-    <Datagrid rowClick="edit">
+    <Datagrid>
       <TextField source="id" />
       <TextField source="name" />
+      {/* <SvgIcon>
+        <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z" />
+      </SvgIcon> */}
+      <EmailIcon label="" source="email"/>{}
       <MyUrlField source="email" />
       <TextField source="phone" />
       <MyUrlField source="website" />
-      <TextField source="company.name" />
+      <TextField label="Company Name" source="company.name" />
     </Datagrid>
   </List>
 );
