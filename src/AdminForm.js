@@ -1,9 +1,10 @@
 import React from 'react';
-import { Responsive, SimpleList, Filter, List, Datagrid, TextField, UrlField, ReferenceField, EditButton, Edit, SimpleForm, DisabledInput, ReferenceInput, SelectInput, TextInput, LongTextInput, Create } from 'react-admin';
+import { Pagination, Responsive, SimpleList, Filter, List, Datagrid, TextField, UrlField, ReferenceField, EditButton, Edit, SimpleForm, DisabledInput, ReferenceInput, SelectInput, TextInput, LongTextInput, Create } from 'react-admin';
 import { withStyles } from '@material-ui/core/styles';
 import EmailIcon from '@material-ui/icons/Email';
 // import Icon from '@material-ui/core/Icon';
 // import SvgIcon from '@material-ui/core/SvgIcon';
+import Button from '@material-ui/core/Button';
 
 const styles = {
   button: {
@@ -30,16 +31,36 @@ const MyEditButton = withStyles(styles)(({ classes, ...props }) => (
   />
 ));
 
+const EmailAddress = ({ record = {} }) => {
+  return (
+    // <span>
+    //   <EmailIcon />{record.email}
+    // </span>
+    <Button
+      startIcon={<EmailIcon />}
+    >
+      {record.email}
+    </Button>
+  )
+};
+
+const PostPanel = props => (
+  <TextField {...props} source="body" />
+);
+
+const PostPagination = props => <Pagination rowsPerPageOptions={[10, 25, 50]} {...props} />
+
 export const UserList = (props) => (
-  <List {...props}>
+  <List {...props} perPage={10} pagination={<PostPagination />} sort={{ field: 'updatedAt', order: 'DESC' }}>
     <Datagrid>
       <TextField source="id" />
       <TextField source="name" />
       {/* <SvgIcon>
         <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z" />
       </SvgIcon> */}
-      <EmailIcon label="" source="email"/>{}
-      <MyUrlField source="email" />
+      <EmailAddress label="Email" />
+      {/* <EmailIcon />
+      <MyUrlField source="email" /> */}
       <TextField source="phone" />
       <MyUrlField source="website" />
       <TextField label="Company Name" source="company.name" />
@@ -57,7 +78,7 @@ const PostFilter = (props) => (
 );
 
 export const PostList = (props) => (
-  <List filters={ <PostFilter /> } {...props}>
+  <List perPage={10} pagination={<PostPagination />} filters={ <PostFilter /> } {...props}>
     <Responsive
       small={
         <SimpleList
@@ -67,7 +88,7 @@ export const PostList = (props) => (
         />
       }
       medium={
-        <Datagrid>
+        <Datagrid expand={ <PostPanel /> }>
           <TextField source="id" />
           <ReferenceField source="userId" reference="users">
             <TextField source="name" />

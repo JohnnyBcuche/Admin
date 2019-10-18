@@ -6,6 +6,7 @@ import Dashboard from './Dashboard';
 import AuthProvider from './AuthProvider';
 import PostIcon from '@material-ui/icons/Book';
 import UserIcon from '@material-ui/icons/Group';
+import LocalBarIcon from '@material-ui/icons/LocalBar';
 import { createMuiTheme } from '@material-ui/core/styles';
 import purple from '@material-ui/core/colors/purple';
 import green from '@material-ui/core/colors/green';
@@ -23,6 +24,7 @@ function App() {
     <Admin theme={ theme } dashboard={ Dashboard } authProvider={ AuthProvider } dataProvider={ dataProvider }>
       <Resource name="posts" list={ PostList } edit={ PostEdit } create={ PostCreate } icon={ PostIcon } />
       <Resource name="users" list={ UserList } icon={ UserIcon } />
+      <Resource name="experiment" list={ UserList } icon={ LocalBarIcon } />
     </Admin>
   );
 }
